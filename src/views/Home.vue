@@ -1,15 +1,27 @@
 <template>
   <div class="home">
-    <div v-for="result in results" :key="result.name">
-      <router-link
-        :to="{ name: 'ResultDetails', params: { slug: result.slug } }"
-      >
-        <h2>{{ result.name }}</h2>
-      </router-link>
-      <figure>
-        <p>{{ result.score }}</p>
-      </figure>
+    <h2>Results Summary Page</h2>
+    <div style="center">
+    <table style="border:1px solid black;margin-left:auto;margin-right:auto;">
+        <thead>
+            <tr>
+                <th colspan="1">Files Compared</th>
+                <th colspan="1">Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="result in results" :key="result.name">
+                <td>
+                  <router-link :to="{ name: 'ResultDetails', params: { slug: result.slug } }" >
+                    {{ result.slug}}
+                  </router-link>
+                </td>
+                <td>{{ result.score }}</td>
+            </tr>
+        </tbody>
+    </table>
     </div>
+    
   </div>
 </template>
 
@@ -38,3 +50,29 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+table {
+  justify-content: center;
+  border: 1px solid #333;
+}
+td {
+    border: 1px solid #333;
+    justify-content: center;
+    padding: 10px;
+}
+
+tbody {
+  justify-content: center;
+}
+
+th {
+  padding: 20px;
+}
+
+thead,
+tfoot {
+    background-color: rgb(48, 48, 48);
+    color: #fff;
+}
+</style>

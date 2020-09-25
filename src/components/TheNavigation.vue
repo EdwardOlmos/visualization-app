@@ -8,15 +8,7 @@
 //import store from "@/store.js"
 export default {
   data() {
-    return {
-
-    };
-  },
-  props: {
-    slug: {
-      type: String,
-      required: true
-    }
+    return {};
   }
 }
 </script>
