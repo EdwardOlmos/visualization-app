@@ -2,26 +2,27 @@
   <div class="home">
     <h2>Results Summary Page</h2>
     <div style="center">
-    <table style="border:1px solid black;margin-left:auto;margin-right:auto;">
+      <table style="border:1px solid black;margin-left:auto;margin-right:auto;">
         <thead>
-            <tr>
-                <th colspan="1">Files Compared</th>
-                <th colspan="1">Score</th>
-            </tr>
+          <tr>
+            <th colspan="1">Files Compared</th>
+            <th colspan="1">Score</th>
+          </tr>
         </thead>
         <tbody>
-            <tr v-for="result in results" :key="result.name">
-                <td>
-                  <router-link :to="{ name: 'ResultDetails', params: { slug: result.slug } }" >
-                    {{ result.slug}}
-                  </router-link>
-                </td>
-                <td>{{ result.score }}</td>
-            </tr>
+          <tr v-for="result in results" :key="result.name">
+            <td>
+              <router-link
+                :to="{ name: 'ResultDetails', params: { slug: result.slug } }"
+              >
+                {{ result.slug }}
+              </router-link>
+            </td>
+            <td>{{ result.score }}</td>
+          </tr>
         </tbody>
-    </table>
+      </table>
     </div>
-    
   </div>
 </template>
 
@@ -34,18 +35,7 @@ export default {
   components: {},
   data() {
     return {
-      results: store.results,
-      columns: ["id", "name", "age"],
-      tableData: [
-        { id: 1, name: "John", age: "20" },
-        { id: 2, name: "Jane", age: "24" },
-        { id: 3, name: "Susan", age: "16" },
-        { id: 4, name: "Chris", age: "55" },
-        { id: 5, name: "Dan", age: "40" }
-      ],
-      options: {
-        // see the options API
-      }
+      results: store.results
     };
   }
 };
@@ -57,9 +47,9 @@ table {
   border: 1px solid #333;
 }
 td {
-    border: 1px solid #333;
-    justify-content: center;
-    padding: 10px;
+  border: 1px solid #333;
+  justify-content: center;
+  padding: 10px;
 }
 
 tbody {
@@ -72,7 +62,7 @@ th {
 
 thead,
 tfoot {
-    background-color: rgb(48, 48, 48);
-    color: #fff;
+  background-color: rgb(48, 48, 48);
+  color: #fff;
 }
 </style>

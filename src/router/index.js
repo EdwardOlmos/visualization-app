@@ -1,10 +1,9 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
-import store from "@/store.js"
-import { ClientTable } from "vue-tables-2";
+import store from "@/store.js";
 
-Vue.use(VueRouter, ClientTable);
+Vue.use(VueRouter);
 
 const routes = [
   {
@@ -14,7 +13,7 @@ const routes = [
     component: Home
   },
   {
-    path: "/results/:slug",
+    path: "/:slug",
     name: "ResultDetails",
     props: true,
     // route level code-splitting
@@ -27,11 +26,11 @@ const routes = [
     beforeEnter: (to, from, next) => {
       const exists = store.results.find(
         results => results.slug === to.params.slug
-      )
-      if(exists) {
+      );
+      if (exists) {
         next();
       } else {
-        next({name: "notFound"});
+        next({ name: "notFound" });
       }
     }
   },
@@ -40,15 +39,12 @@ const routes = [
     alias: "*",
     name: "notFound",
     component: () =>
-      import(
-        /* webpackChunkName: "NotFound" */ "../views/NotFound.vue"
-      )
+      import(/* webpackChunkName: "NotFound" */ "../views/NotFound.vue")
   }
 ];
 
 const router = new VueRouter({
   routes,
-  ClientTable,
   mode: "history"
 });
 
