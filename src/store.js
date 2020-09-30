@@ -5,7 +5,7 @@ export default {
       slug: "Edward",
       score: 0.079,
       firstFile: "001.java",
-      secFile: "001-p.java",
+      secFile: "002.java",
       matches: [
         {
           firstIntervalMin: 34,

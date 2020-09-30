@@ -2,7 +2,7 @@
   <div class="home">
     <h2>Results Summary Page</h2>
     <div style="center">
-      <table style="border:1px solid black;margin-left:auto;margin-right:auto;">
+      <table>
         <thead>
           <tr>
             <th colspan="1">Files Compared</th>
@@ -45,18 +45,12 @@ export default {
 table {
   justify-content: center;
   border: 1px solid #333;
+  margin-left:auto;
+  margin-right:auto;
 }
-td {
+td, th {
   border: 1px solid #333;
   justify-content: center;
-  padding: 10px;
-}
-
-tbody {
-  justify-content: center;
-}
-
-th {
   padding: 20px;
 }
 
