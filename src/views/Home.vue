@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h2>Results Summary Page</h2>
+    <h2 style="text-align: center;">Results Summary Page</h2>
     <div style="center">
       <table>
         <thead>
@@ -45,10 +45,11 @@ export default {
 table {
   justify-content: center;
   border: 1px solid #333;
-  margin-left:auto;
-  margin-right:auto;
+  margin-left: auto;
+  margin-right: auto;
 }
-td, th {
+td,
+th {
   border: 1px solid #333;
   justify-content: center;
   padding: 20px;
