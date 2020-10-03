@@ -3,48 +3,59 @@
     <h2 style="text-align: center;">
       Comparison: {{ this.$route.params.slug }} (score: {{ result.score }})
     </h2>
-    <div v-if="hover">Show</div>
-    <table>
-      <thead>
-        <tr>
-          <th colspan="1">
-            {{ result.fileOneName }}
-          </th>
-          <th colspan="1">{{ result.fileTwoName }}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            <div id="a">
-              <div
-                @mouseover="mouseOver"
-                @mouseleave="mouseLeave"
+    <div class="table">
+      <table>
+        <thead>
+          <tr>
+            <th colspan="1">
+              {{ result.fileOneName }}
+            </th>
+            <th colspan="1">{{ result.fileTwoName }}</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>
+              <pre id="a" class="code">
+              <a
                 v-for="(line, index) in result.fileOneLines"
                 :key="index"
+                @mouseover="mouseOver"
+                @mouseleave="mouseLeave"
+                :id="'match-' + (index + 1) + '-a'"
+                :href="'#match-' + (index + 1) + '-b'"
                 :class="[
                   isMatch(index) ? 'matched-theme' : 'normal-theme',
-                  {'hovered-theme': hovered}
+                  { 'hovered-theme': hovered }
                 ]"
               >
-                {{ index + 1 }} | {{ line }}
-              </div>
-            </div>
-          </td>
-          <td>
-            <div id="b">
-              <div
+    {{ index + 1 }} | {{ line }}
+              </a>
+            </pre>
+            </td>
+            <td>
+              <pre id="b" class="code">
+              <a
                 v-for="(line, index) in result.fileTwoLines"
                 :key="index"
-                :class="isMatch(index) ? 'matched-theme' : 'normal-theme'"
-              >
-                {{ index + 1 }} | {{ line }}
-              </div>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+                @mouseover="mouseOver"
+                @mouseleave="mouseLeave"
+                :id="'match-' + (index + 1) + '-b'"
+                :href="'#match-' + (index + 1) + '-a'"
+                :class="[
+                  isMatch(index) ? 'matched-theme' : 'normal-theme',
+                  { 'hovered-theme': hovered }
+                ]"
+              > 
+    {{ index + 1 }} | {{ line }}
+              </a>
+            </pre>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
@@ -90,18 +101,25 @@ export default {
 </script>
 
 <style scoped>
-table {
-  justify-content: center;
+div.table {
   border: 1px solid #333;
-  margin-left: auto;
-  margin-right: auto;
+  table-layout: fixed;
+  margin: 0 auto; /* just cosmetics */
+  width: "100%";
+  height: 100%;
+  background: #eee;
+  display: table;
 }
-td,
+td {
+  border: 1px solid #333;
+  vertical-align: super;
+  height: 100%;
+  overflow: scroll;
+}
+
 th {
   border: 1px solid #333;
-  justify-content: center;
   padding: 20px;
-  vertical-align: super;
 }
 
 thead,
@@ -112,21 +130,33 @@ tfoot {
 
 .matched-theme {
   color: red;
-  width: 40vw;
-  margin-left: auto;
   font-size: 1.2em;
 }
 
 .normal-theme {
-  width: 40vw;
-  margin-left: auto;
+  color: inherit;
   font-size: 1.2em;
 }
 
 .hovered-theme {
   color: green;
-  width: 40vw;
-  margin-left: auto;
   font-size: 1.2em;
+  cursor: default;
+}
+
+.code a,
+b {
+  text-decoration: none;
+  height: 100%;
+}
+
+pre {
+  overflow-x: auto;
+  width: "100%";
+}
+
+pre a {
+  border-left-color: lightpink;
+  text-align: left;
 }
 </style>
