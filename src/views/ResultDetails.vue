@@ -114,7 +114,6 @@ td {
   border: 1px solid #333;
   vertical-align: super;
   height: 100%;
-  overflow: scroll;
 }
 
 th {
@@ -147,12 +146,13 @@ tfoot {
 .code a,
 b {
   text-decoration: none;
-  height: 100%;
 }
 
 pre {
   overflow-x: auto;
   width: "100%";
+  max-width: 50vmax;
+  max-height:35vmax;
 }
 
 pre a {
