@@ -17,7 +17,7 @@
               <div
                 v-for="(line, index) in result.fileOneLines"
                 :key="index"
-                :class="isMatch(4) ? 'matched-theme' : 'normal-theme'"
+                :class="isMatch ? 'matched-theme' : 'normal-theme'"
               >
                 {{ index + 1 }} | {{ line }}
               </div>
