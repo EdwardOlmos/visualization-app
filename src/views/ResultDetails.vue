@@ -21,16 +21,15 @@
               <a
                 v-for="(line, index) in result.fileOneLines"
                 :key="index"
-                @mouseover="mouseOver"
-                @mouseleave="mouseLeave"
-                :id="'match-' + (index + 1) + '-a'"
-                :href="'#match-' + (index + 1) + '-b'"
+                @mouseover="mouseOverLine"
+                @mouseleave="mouseLeaveLine"
+                :id="'line-' + (index + 1) + '-a'"
+                :href="'#line-' + (index + 1) + '-b'"
                 :class="[
-                  isMatch(index) ? 'matched-theme' : 'normal-theme',
-                  { 'hovered-theme': hovered }
+                  isMatchA(index) ? 'matched-theme' : 'normal-theme'
                 ]"
               >
-    {{ index + 1 }} | {{ line }}
+    {{ fixIndex(index) }} | {{ line }}
               </a>
             </pre>
             </td>
@@ -39,16 +38,15 @@
               <a
                 v-for="(line, index) in result.fileTwoLines"
                 :key="index"
-                @mouseover="mouseOver"
-                @mouseleave="mouseLeave"
-                :id="'match-' + (index + 1) + '-b'"
-                :href="'#match-' + (index + 1) + '-a'"
+                @mouseover="mouseOverLine"
+                @mouseleave="mouseLeaveLine"
+                :id="'line-' + (index + 1) + '-b'"
+                :href="'#line-' + (index + 1) + '-a'"
                 :class="[
-                  isMatch(index) ? 'matched-theme' : 'normal-theme',
-                  { 'hovered-theme': hovered }
+                  isMatchB(index) ? 'matched-theme' : 'normal-theme'
                 ]"
               > 
-    {{ index + 1 }} | {{ line }}
+    {{ fixIndex(index) }} | {{ line }}
               </a>
             </pre>
             </td>
@@ -75,26 +73,56 @@ export default {
       required: true
     }
   },
-  /* Fetches the Result.slug attribute from the store.js */
   computed: {
     result() {
       return store.results.find(result => result.slug === this.slug);
     }
   },
   methods: {
-    isMatch: function(num) {
-      var temp = store.results.find(result => result.fileOneMatches);
-      if (temp.fileOneMatches.indexOf(num) !== -1) {
+    isMatchA: function(index) {
+      var temp = this.result.fileOneMatches;
+      if (temp.includes(index)) {
         return true;
       } else {
         return false;
       }
     },
-    mouseOver: function() {
-      this.hovered = !this.hovered;
+    isMatchB: function(index) {
+      var temp = this.result.fileTwoMatches;
+      if (temp.includes(index)) {
+        return true;
+      } else {
+        return false;
+      }
     },
-    mouseLeave: function() {
-      this.hovered = !this.hovered;
+    mouseOverLine: function() {
+      var matches = this.result.testFileOneMatches;
+      var firstMatch = matches[0];
+      var firstInterval = firstMatch[0];
+      var secondInterval = firstMatch[1];
+      var selection1 = document.getElementById("line-" + firstInterval + "-a");
+      var selection2 = document.getElementById("line-" + secondInterval + "-b");
+      selection1.classList = "hovered-theme";
+      selection2.classList = "hovered-theme";
+    },
+    mouseLeaveLine: function() {
+      var matches = this.result.testFileOneMatches;
+      var firstMatch = matches[0];
+      var firstInterval = firstMatch[0];
+      var secondInterval = firstMatch[1];
+      var selection1 = document.getElementById("line-" + firstInterval + "-a");
+      var selection2 = document.getElementById("line-" + secondInterval + "-b");
+      if(matches != null) {
+        selection1.classList = "matched-theme";
+        selection2.classList = "matched-theme";
+      }
+      else {
+        selection1.classList = "normal-theme";
+        selection2.classList = "normal-theme";
+      }
+    },
+    fixIndex: function(index) {
+      return index + 1;
     }
   }
 };
@@ -138,7 +166,7 @@ tfoot {
 }
 
 .hovered-theme {
-  color: green;
+  background-color: green;
   font-size: 1.2em;
   cursor: default;
 }
@@ -152,11 +180,10 @@ pre {
   overflow-x: auto;
   width: "100%";
   max-width: 50vmax;
-  max-height:35vmax;
+  max-height: 35vmax;
 }
 
 pre a {
-  border-left-color: lightpink;
   text-align: left;
 }
 </style>

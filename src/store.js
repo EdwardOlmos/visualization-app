@@ -570,6 +570,12 @@ export default {
         "",
         " 	",
         "   xGT;}}"
+      ],
+      testFileOneMatches: [
+        [2, 4],
+        [6, 8],
+        [4, 5],
+        [8, 9]
       ]
     },
     {
