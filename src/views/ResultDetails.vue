@@ -16,39 +16,38 @@
 
         <tbody>
           <tr>
+            <!-- __________________________________________________________________________ -->
             <td>
-              <pre id="a" class="code">
-              <a
-                v-for="(line, index) in result.fileOneLines"
-                :key="index"
-                @mouseover="mouseOverLine"
-                @mouseleave="mouseLeaveLine"
-                :id="'line-' + (index + 1) + '-a'"
-                :href="'#line-' + (index + 1) + '-b'"
-                :class="[
-                  isMatchA(index) ? 'matched-theme' : 'normal-theme'
-                ]"
-              >
-    {{ fixIndex(index) }} | {{ line }}
-              </a>
-            </pre>
+              <div id="a" class="code">
+                <div
+                  v-for="(line, index) in result.fileOneLines"
+                  :key="index"
+                  @mouseover="mouseOverLine"
+                  @mouseleave="mouseLeaveLine"
+                  :id="'line-' + fixIndex(index) + '-a'"
+                  :class="isMatchAInterval(index) ? 'matched-theme' : 'normal-theme'"
+                >
+                  <pre> {{ fixIndex(index) }} | {{ line }}</pre
+                  >
+                </div>
+              </div>
             </td>
+            <!-- __________________________________________________________________________ -->
             <td>
-              <pre id="b" class="code">
-              <a
-                v-for="(line, index) in result.fileTwoLines"
-                :key="index"
-                @mouseover="mouseOverLine"
-                @mouseleave="mouseLeaveLine"
-                :id="'line-' + (index + 1) + '-b'"
-                :href="'#line-' + (index + 1) + '-a'"
-                :class="[
-                  isMatchB(index) ? 'matched-theme' : 'normal-theme'
-                ]"
-              > 
-    {{ fixIndex(index) }} | {{ line }}
-              </a>
-            </pre>
+              <div id="b" class="code">
+                <div
+                  v-for="(line, index) in result.fileTwoLines"
+                  :key="index"
+                  @mouseover="mouseOverLine"
+                  @mouseleave="mouseLeaveLine"
+                  :id="'line-' + fixIndex(index) + '-b'"
+                  :class="isMatchB(index) ? 'matched-theme' : 'normal-theme'"
+                  :style="intervals(index)"
+                >
+                  <pre > {{ fixIndex(index) }} | {{ line }}</pre
+                  >
+                </div>
+              </div>
             </td>
           </tr>
         </tbody>
@@ -64,7 +63,8 @@ export default {
   data() {
     return {
       hovered: false,
-      active: true
+      active: true,
+      isMatch: false
     };
   },
   props: {
@@ -79,7 +79,7 @@ export default {
     }
   },
   methods: {
-    isMatchA: function(index) {
+    isMatchAInterval: function(index) {
       var temp = this.result.fileOneMatches;
       if (temp.includes(index)) {
         return true;
@@ -95,30 +95,44 @@ export default {
         return false;
       }
     },
+    intervals: function(index) {
+      var matches = this.result.testMatches;
+      var setOfClasses = "font-weight: 900;";
+      var i;
+      for (i = 0; i < matches.length; i++) {
+        var match = matches[i];
+        console.log(match[0])
+        if(match[0].includes(index))
+          console.log("YOU ARE A BEAST!")
+        match
+      }
+      return setOfClasses
+    },
     mouseOverLine: function() {
-      var matches = this.result.testFileOneMatches;
-      var firstMatch = matches[0];
-      var firstInterval = firstMatch[0];
-      var secondInterval = firstMatch[1];
-      var selection1 = document.getElementById("line-" + firstInterval + "-a");
-      var selection2 = document.getElementById("line-" + secondInterval + "-b");
-      selection1.classList = "hovered-theme";
-      selection2.classList = "hovered-theme";
+      var matches = this.result.testMatches;
+      var match = matches[0];
+      console.log(match);
+      var intervalA = match[0];
+      var intervalB = match[1];
+      var selection1 = document.getElementById("line-" + intervalA + "-a");
+      var selection2 = document.getElementById("line-" + intervalB + "-b");
+      selection1.classList.add("hovered-theme");
+      selection2.classList.add("hovered-theme");
     },
     mouseLeaveLine: function() {
-      var matches = this.result.testFileOneMatches;
-      var firstMatch = matches[0];
-      var firstInterval = firstMatch[0];
-      var secondInterval = firstMatch[1];
-      var selection1 = document.getElementById("line-" + firstInterval + "-a");
-      var selection2 = document.getElementById("line-" + secondInterval + "-b");
+      var matches = this.result.testMatches;
+      var match = matches[0];
+      var intervalA = match[0];
+      var intervalB = match[1];
+      var selection1 = document.getElementById("line-" + intervalA + "-a");
+      var selection2 = document.getElementById("line-" + intervalB + "-b");
       if(matches != null) {
-        selection1.classList = "matched-theme";
-        selection2.classList = "matched-theme";
+        selection1.classList.add("matched-theme");
+        selection2.classList.add("matched-theme");
       }
       else {
-        selection1.classList = "normal-theme";
-        selection2.classList = "normal-theme";
+        selection1.classList.add("normal-theme");
+        selection2.classList.add("normal-theme");
       }
     },
     fixIndex: function(index) {
@@ -132,58 +146,41 @@ export default {
 div.table {
   border: 1px solid #333;
   table-layout: fixed;
-  margin: 0 auto; /* just cosmetics */
-  width: "100%";
-  height: 100%;
+  margin: 0 auto;
   background: #eee;
   display: table;
 }
+
 td {
   border: 1px solid #333;
   vertical-align: super;
   height: 100%;
 }
 
-th {
-  border: 1px solid #333;
-  padding: 20px;
-}
-
 thead,
-tfoot {
+tfoot, th {
   background-color: rgb(48, 48, 48);
   color: #fff;
+  padding: 20px;
 }
 
 .matched-theme {
   color: red;
-  font-size: 1.2em;
 }
 
 .normal-theme {
   color: inherit;
-  font-size: 1.2em;
 }
 
 .hovered-theme {
   background-color: green;
-  font-size: 1.2em;
   cursor: default;
 }
 
-.code a,
-b {
-  text-decoration: none;
-}
-
-pre {
+.code {
   overflow-x: auto;
   width: "100%";
-  max-width: 50vmax;
+  width: 40vmax;
   max-height: 35vmax;
-}
-
-pre a {
-  text-align: left;
 }
 </style>

@@ -47,6 +47,8 @@ table {
   border: 1px solid #333;
   margin-left: auto;
   margin-right: auto;
+  width: 40vmax;
+  max-height: 35vmax;
 }
 td,
 th {
