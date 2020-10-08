@@ -572,18 +572,9 @@ export default {
         "   xGT;}}"
       ],
       testMatches: [
-        [
-          [3],
-          [39]
-        ],
-        [
-          [5],
-          [74, 76]
-        ],
-        [
-          [6],
-          [85]
-        ],
+        [[3], [39]],
+        [[3], [74, 76]],
+        [[6], [85]]
       ]
     },
     {
@@ -3020,11 +3011,10 @@ export default {
         "for (kB FPdnDW1 = wjH4() * F4eCE > Xq_SdNZ; mbL; R2 = zfAoBE > Ut67VSLVa > Vgjlr * p) {",
         "T = JSxt4Qsm3 < FMwcj + anravN + LjIqKil;}}}"
       ],
-      testFileOneMatches: [
-        [2, 4],
-        [6, 8],
-        [4, 5],
-        [8, 9]
+      testMatches: [
+        [[3], [39]],
+        [[3], [74, 76]],
+        [[6], [85]]
       ]
     },
     {
@@ -3226,11 +3216,10 @@ export default {
         "for (kB FPdnDW1 = wjH4() * F4eCE > Xq_SdNZ; mbL; R2 = zfAoBE > Ut67VSLVa > Vgjlr * p) {",
         "T = JSxt4Qsm3 < FMwcj + anravN + LjIqKil;}}}"
       ],
-      testFileOneMatches: [
-        [2, 4],
-        [6, 8],
-        [4, 5],
-        [8, 9]
+      testMatches: [
+        [[3], [39]],
+        [[3], [74, 76]],
+        [[6], [85]]
       ]
     }
   ]

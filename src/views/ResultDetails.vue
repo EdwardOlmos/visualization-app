@@ -22,13 +22,14 @@
                 <div
                   v-for="(line, index) in result.fileOneLines"
                   :key="index"
-                  @mouseover="mouseOverLine"
-                  @mouseleave="mouseLeaveLine"
                   :id="'line-' + fixIndex(index) + '-a'"
-                  :class="isMatchAInterval(index) ? 'matched-theme' : 'normal-theme'"
+                  v-on:click="test(fixIndex(index))"
+                  :class="[
+                    isMatchA(index) ? 'matched-theme' : 'normal-theme',
+                    intervalsA(index)
+                  ]"
                 >
-                  <pre> {{ fixIndex(index) }} | {{ line }}</pre
-                  >
+                  <pre> {{ fixIndex(index) }} | {{ line }}</pre>
                 </div>
               </div>
             </td>
@@ -38,14 +39,13 @@
                 <div
                   v-for="(line, index) in result.fileTwoLines"
                   :key="index"
-                  @mouseover="mouseOverLine"
-                  @mouseleave="mouseLeaveLine"
                   :id="'line-' + fixIndex(index) + '-b'"
-                  :class="isMatchB(index) ? 'matched-theme' : 'normal-theme'"
-                  :style="intervals(index)"
+                  :class="[
+                    isMatchB(index) ? 'matched-theme ' : 'normal-theme ',
+                    intervalsB(index)
+                  ]"
                 >
-                  <pre > {{ fixIndex(index) }} | {{ line }}</pre
-                  >
+                  <pre> {{ fixIndex(index) }} | {{ line }}</pre>
                 </div>
               </div>
             </td>
@@ -61,11 +61,7 @@ import store from "@/store.js";
 
 export default {
   data() {
-    return {
-      hovered: false,
-      active: true,
-      isMatch: false
-    };
+    return {};
   },
   props: {
     slug: {
@@ -79,60 +75,79 @@ export default {
     }
   },
   methods: {
-    isMatchAInterval: function(index) {
-      var temp = this.result.fileOneMatches;
-      if (temp.includes(index)) {
+    isMatchA: function(index) {
+      var matches = this.result.fileOneMatches;
+      if (matches.includes(index)) {
         return true;
       } else {
         return false;
       }
     },
     isMatchB: function(index) {
-      var temp = this.result.fileTwoMatches;
-      if (temp.includes(index)) {
+      var matches = this.result.fileTwoMatches;
+      if (matches.includes(index)) {
         return true;
       } else {
         return false;
       }
     },
-    intervals: function(index) {
+    intervalsA: function(index) {
       var matches = this.result.testMatches;
-      var setOfClasses = "font-weight: 900;";
+      var setOfClasses = "";
+      // Check if this line is in any matches
       var i;
       for (i = 0; i < matches.length; i++) {
         var match = matches[i];
-        console.log(match[0])
-        if(match[0].includes(index))
-          console.log("YOU ARE A BEAST!")
-        match
+        // console.log(match[0]);
+        // Check File A interval of this match
+        if (match[0].includes(index)) {
+          // console.log("Found in match-" + i + " with index of " + index);
+          setOfClasses = setOfClasses + "match-" + i+ " ";
+        }
       }
-      return setOfClasses
+      return setOfClasses;
     },
-    mouseOverLine: function() {
+    intervalsB: function(index) {
       var matches = this.result.testMatches;
-      var match = matches[0];
-      console.log(match);
-      var intervalA = match[0];
-      var intervalB = match[1];
-      var selection1 = document.getElementById("line-" + intervalA + "-a");
-      var selection2 = document.getElementById("line-" + intervalB + "-b");
-      selection1.classList.add("hovered-theme");
-      selection2.classList.add("hovered-theme");
-    },
-    mouseLeaveLine: function() {
-      var matches = this.result.testMatches;
-      var match = matches[0];
-      var intervalA = match[0];
-      var intervalB = match[1];
-      var selection1 = document.getElementById("line-" + intervalA + "-a");
-      var selection2 = document.getElementById("line-" + intervalB + "-b");
-      if(matches != null) {
-        selection1.classList.add("matched-theme");
-        selection2.classList.add("matched-theme");
+      var setOfClasses = "";
+      // Check if this line
+      var i;
+      for (i = 0; i < matches.length; i++) {
+        var match = matches[i];
+        // console.log(match[1]);
+        // Check File B interval of this match
+        if (match[1].includes(index)) {
+          // console.log("Found in match-" + i + " with index of " + index);
+          setOfClasses = setOfClasses + "match-" + i + " ";
+        }
       }
-      else {
-        selection1.classList.add("normal-theme");
-        selection2.classList.add("normal-theme");
+      return setOfClasses;
+    },
+    test: function(lineNo) {
+      console.log("-----------------------------------");
+      console.log("LineNo " + lineNo + " was clicked");
+      var selectedDiv = document.getElementById("line-" + lineNo + "-a");
+      var classList = "" + selectedDiv.classList
+      var classArray = classList.split(' ');
+      var matchList = [];
+      let re = /match-/;
+      // console.log(re);
+      var i;
+      for(i = 0; i < classArray.length; i++) {
+        if(classArray[i] != " ") {
+          if(re.test(classArray[i])) {
+            // print out what class was read
+            var matchNo = classArray[i].split('-')[1]
+            console.log("Match " + matchNo + " was read...");
+            matchList += matchNo;
+          }
+          else {
+            console.log("No Match read...");
+          }
+        }
+      }
+      for(i = 0; i < matchList.length; i++) {
+        console.log("Here is what is in matchList: " + matchList[i]);
       }
     },
     fixIndex: function(index) {
@@ -158,7 +173,8 @@ td {
 }
 
 thead,
-tfoot, th {
+tfoot,
+th {
   background-color: rgb(48, 48, 48);
   color: #fff;
   padding: 20px;
