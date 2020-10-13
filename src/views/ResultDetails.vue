@@ -102,7 +102,7 @@ export default {
         // Check File A interval of this match
         if (match[0].includes(index)) {
           // console.log("Found in match-" + i + " with index of " + index);
-          setOfClasses = setOfClasses + "match-" + i+ " ";
+          setOfClasses = setOfClasses + "match-" + i + " ";
         }
       }
       return setOfClasses;
@@ -127,27 +127,53 @@ export default {
       console.log("-----------------------------------");
       console.log("LineNo " + lineNo + " was clicked");
       var selectedDiv = document.getElementById("line-" + lineNo + "-a");
-      var classList = "" + selectedDiv.classList
-      var classArray = classList.split(' ');
-      var matchList = [];
-      let re = /match-/;
-      // console.log(re);
-      var i;
-      for(i = 0; i < classArray.length; i++) {
-        if(classArray[i] != " ") {
-          if(re.test(classArray[i])) {
-            // print out what class was read
-            var matchNo = classArray[i].split('-')[1]
-            console.log("Match " + matchNo + " was read...");
-            matchList += matchNo;
-          }
-          else {
-            console.log("No Match read...");
+
+      // clean up all div's with highlighted matches, if any
+      if (document.getElementsByClassName("highlight-theme")) {
+        var HTMLColl = document.getElementsByClassName("highlight-theme");
+        console.log("HTMLCOLL: " + HTMLColl.length);
+
+        var lengthHTML = HTMLColl.length;
+        if (HTMLColl.length != 0) {
+          for (i = 0; i < lengthHTML; i++) {
+            console.log(HTMLColl[0]);
+            var tokenList1 = HTMLColl[i].classList;
+            // tokenList1.forEach(token => console.log(token));
+            tokenList1.remove("highlight-theme");
           }
         }
       }
-      for(i = 0; i < matchList.length; i++) {
-        console.log("Here is what is in matchList: " + matchList[i]);
+
+      var classList = "" + selectedDiv.classList;
+      var classArray = classList.split(" ");
+      if (classArray.length > 1) {
+        var matchList = [];
+        let re = /match-/;
+        // collect matches and push them into matchList
+        var i;
+        for (i = 0; i < classArray.length; i++) {
+          if (classArray[i] != " ") {
+            if (re.test(classArray[i])) {
+              var matchNo = classArray[i].split("-")[1];
+              matchList.push("match-" + matchNo);
+            }
+          }
+        }
+        var j;
+        console.log("Matches Found: " + matchList);
+
+        // inject highlight class - create a for loop that iterates through matchList[]
+        for (i = 0; i < matchList.length; i++) {
+          var HTMLCollection = document.getElementsByClassName(matchList[i]);
+          //  console.log(HTMLCollection)
+          for (j = 0; j < HTMLCollection.length; j++) {
+            // console.log(HTMLCollection[j]);
+            var tokenList = HTMLCollection[j].classList;
+            tokenList.add("highlight-theme");
+          }
+        }
+      } else {
+        console.log("No matches...");
       }
     },
     fixIndex: function(index) {
@@ -188,7 +214,7 @@ th {
   color: inherit;
 }
 
-.hovered-theme {
+.highlight-theme {
   background-color: green;
   cursor: default;
 }
