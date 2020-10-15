@@ -124,6 +124,7 @@ export default {
       return setOfClasses;
     },
     test: function(lineNo) {
+      var i;
       console.log("-----------------------------------");
       console.log("LineNo " + lineNo + " was clicked");
       var selectedDiv = document.getElementById("line-" + lineNo + "-a");
@@ -135,9 +136,9 @@ export default {
 
         var lengthHTML = HTMLColl.length;
         if (HTMLColl.length != 0) {
-          for (i = 0; i < lengthHTML; i++) {
-            console.log(HTMLColl[0]);
-            var tokenList1 = HTMLColl[i].classList;
+          for (i = lengthHTML; i > 0; i--) {
+            // console.log(HTMLColl[0]);
+            var tokenList1 = HTMLColl[i-1].classList;
             // tokenList1.forEach(token => console.log(token));
             tokenList1.remove("highlight-theme");
           }
@@ -150,7 +151,7 @@ export default {
         var matchList = [];
         let re = /match-/;
         // collect matches and push them into matchList
-        var i;
+
         for (i = 0; i < classArray.length; i++) {
           if (classArray[i] != " ") {
             if (re.test(classArray[i])) {
