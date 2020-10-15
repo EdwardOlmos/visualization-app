@@ -3,6 +3,11 @@
     <h2 style="text-align: center;">
       Comparison: {{ this.$route.params.slug }} (score: {{ result.score }})
     </h2>
+    <div :class="center">
+      <button >
+        Clear Highlighted
+      </button>
+    </div>
     <div class="table">
       <table>
         <thead>
@@ -23,7 +28,7 @@
                   v-for="(line, index) in result.fileOneLines"
                   :key="index"
                   :id="'line-' + fixIndex(index) + '-a'"
-                  v-on:click="test(fixIndex(index))"
+                  v-on:click="clickLineA(fixIndex(index))"
                   :class="[
                     isMatchA(index) ? 'matched-theme' : 'normal-theme',
                     intervalsA(index)
@@ -40,6 +45,7 @@
                   v-for="(line, index) in result.fileTwoLines"
                   :key="index"
                   :id="'line-' + fixIndex(index) + '-b'"
+                  v-on:click="clickLineB(fixIndex(index))"
                   :class="[
                     isMatchB(index) ? 'matched-theme ' : 'normal-theme ',
                     intervalsB(index)
@@ -94,14 +100,11 @@ export default {
     intervalsA: function(index) {
       var matches = this.result.testMatches;
       var setOfClasses = "";
-      // Check if this line is in any matches
       var i;
       for (i = 0; i < matches.length; i++) {
         var match = matches[i];
-        // console.log(match[0]);
         // Check File A interval of this match
         if (match[0].includes(index)) {
-          // console.log("Found in match-" + i + " with index of " + index);
           setOfClasses = setOfClasses + "match-" + i + " ";
         }
       }
@@ -110,20 +113,17 @@ export default {
     intervalsB: function(index) {
       var matches = this.result.testMatches;
       var setOfClasses = "";
-      // Check if this line
       var i;
       for (i = 0; i < matches.length; i++) {
         var match = matches[i];
-        // console.log(match[1]);
         // Check File B interval of this match
         if (match[1].includes(index)) {
-          // console.log("Found in match-" + i + " with index of " + index);
           setOfClasses = setOfClasses + "match-" + i + " ";
         }
       }
       return setOfClasses;
     },
-    test: function(lineNo) {
+    clickLineA: function(lineNo) {
       var i;
       console.log("-----------------------------------");
       console.log("LineNo " + lineNo + " was clicked");
@@ -137,9 +137,7 @@ export default {
         var lengthHTML = HTMLColl.length;
         if (HTMLColl.length != 0) {
           for (i = lengthHTML; i > 0; i--) {
-            // console.log(HTMLColl[0]);
             var tokenList1 = HTMLColl[i-1].classList;
-            // tokenList1.forEach(token => console.log(token));
             tokenList1.remove("highlight-theme");
           }
         }
@@ -168,7 +166,56 @@ export default {
           var HTMLCollection = document.getElementsByClassName(matchList[i]);
           //  console.log(HTMLCollection)
           for (j = 0; j < HTMLCollection.length; j++) {
-            // console.log(HTMLCollection[j]);
+            var tokenList = HTMLCollection[j].classList;
+            tokenList.add("highlight-theme");
+          }
+        }
+      } else {
+        console.log("No matches...");
+      }
+    },
+    clickLineB: function(lineNo) {
+      var i;
+      console.log("-----------------------------------");
+      console.log("LineNo " + lineNo + " was clicked");
+      var selectedDiv = document.getElementById("line-" + lineNo + "-b");
+
+      // clean up all div's with highlighted matches, if any
+      if (document.getElementsByClassName("highlight-theme")) {
+        var HTMLColl = document.getElementsByClassName("highlight-theme");
+        console.log("HTMLCOLL: " + HTMLColl.length);
+
+        var lengthHTML = HTMLColl.length;
+        if (HTMLColl.length != 0) {
+          for (i = lengthHTML; i > 0; i--) {
+            var tokenList1 = HTMLColl[i-1].classList;
+            tokenList1.remove("highlight-theme");
+          }
+        }
+      }
+
+      var classList = "" + selectedDiv.classList;
+      var classArray = classList.split(" ");
+      if (classArray.length > 1) {
+        var matchList = [];
+        let re = /match-/;
+        // collect matches and push them into matchList
+
+        for (i = 0; i < classArray.length; i++) {
+          if (classArray[i] != " ") {
+            if (re.test(classArray[i])) {
+              var matchNo = classArray[i].split("-")[1];
+              matchList.push("match-" + matchNo);
+            }
+          }
+        }
+        var j;
+        console.log("Matches Found: " + matchList);
+
+        // inject highlight class - create a for loop that iterates through matchList[]
+        for (i = 0; i < matchList.length; i++) {
+          var HTMLCollection = document.getElementsByClassName(matchList[i]);
+          for (j = 0; j < HTMLCollection.length; j++) {
             var tokenList = HTMLCollection[j].classList;
             tokenList.add("highlight-theme");
           }
@@ -212,12 +259,12 @@ th {
 }
 
 .normal-theme {
-  color: inherit;
+  color: black;
 }
 
 .highlight-theme {
-  background-color: green;
-  cursor: default;
+  background-color: yellow;
+  color: black;
 }
 
 .code {
@@ -226,4 +273,14 @@ th {
   width: 40vmax;
   max-height: 35vmax;
 }
+
+.center {
+  margin: 0 auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
 </style>
