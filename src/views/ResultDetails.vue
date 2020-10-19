@@ -3,11 +3,11 @@
     <h2 style="text-align: center;">
       Comparison: {{ this.$route.params.slug }} (score: {{ result.score }})
     </h2>
-    <div :class="center">
-      <button >
+    <!-- <div :class="center">
+      <button>
         Clear Highlighted
       </button>
-    </div>
+    </div> -->
     <div class="table">
       <table>
         <thead>
@@ -98,7 +98,7 @@ export default {
       }
     },
     intervalsA: function(index) {
-      var matches = this.result.testMatches;
+      var matches = this.result.matches;
       var setOfClasses = "";
       var i;
       for (i = 0; i < matches.length; i++) {
@@ -111,7 +111,7 @@ export default {
       return setOfClasses;
     },
     intervalsB: function(index) {
-      var matches = this.result.testMatches;
+      var matches = this.result.matches;
       var setOfClasses = "";
       var i;
       for (i = 0; i < matches.length; i++) {
@@ -137,7 +137,7 @@ export default {
         var lengthHTML = HTMLColl.length;
         if (HTMLColl.length != 0) {
           for (i = lengthHTML; i > 0; i--) {
-            var tokenList1 = HTMLColl[i-1].classList;
+            var tokenList1 = HTMLColl[i - 1].classList;
             tokenList1.remove("highlight-theme");
           }
         }
@@ -188,7 +188,7 @@ export default {
         var lengthHTML = HTMLColl.length;
         if (HTMLColl.length != 0) {
           for (i = lengthHTML; i > 0; i--) {
-            var tokenList1 = HTMLColl[i-1].classList;
+            var tokenList1 = HTMLColl[i - 1].classList;
             tokenList1.remove("highlight-theme");
           }
         }
@@ -274,13 +274,12 @@ th {
   max-height: 35vmax;
 }
 
-.center {
+/* .center {
   margin: 0 auto;
   position: absolute;
   top: 50%;
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-}
-
+} */
 </style>
