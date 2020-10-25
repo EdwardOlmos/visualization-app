@@ -30,8 +30,8 @@
                   :id="'line-' + fixIndex(index) + '-a'"
                   v-on:click="clickLineA(fixIndex(index))"
                   :class="[
-                    isMatchA(index) ? 'matched-theme' : 'normal-theme',
-                    intervalsA(index)
+                    isMatchA(fixIndex(index)) ? 'matched-theme' : 'normal-theme',
+                    intervalsA(fixIndex(index))
                   ]"
                 >
                   <pre> {{ fixIndex(index) }} | {{ line }}</pre>
@@ -47,8 +47,8 @@
                   :id="'line-' + fixIndex(index) + '-b'"
                   v-on:click="clickLineB(fixIndex(index))"
                   :class="[
-                    isMatchB(index) ? 'matched-theme ' : 'normal-theme ',
-                    intervalsB(index)
+                    isMatchB(fixIndex(index)) ? 'matched-theme ' : 'normal-theme ',
+                    intervalsB(fixIndex(index))
                   ]"
                 >
                   <pre> {{ fixIndex(index) }} | {{ line }}</pre>
