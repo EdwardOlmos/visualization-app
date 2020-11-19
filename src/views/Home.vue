@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h2 style="text-align: center;">Results Summary Page</h2>
+    <h2 style="text-align: center;">FETT's Results</h2>
     <div style="center">
       <table>
         <thead>
@@ -13,9 +13,10 @@
           <tr v-for="result in results" :key="result.name">
             <td>
               <router-link
+                style="text-decoration:none"
                 :to="{ name: 'ResultDetails', params: { slug: result.slug } }"
               >
-                {{ result.slug }}
+                {{ result.fileOneName }} compared with {{ result.fileTwoName }}
               </router-link>
             </td>
             <td>{{ result.score }}</td>
@@ -28,7 +29,7 @@
 
 <script>
 // @ is an alias to /src
-import store from "@/store.js";
+import store from "@/script_results.js";
 
 export default {
   name: "Home",

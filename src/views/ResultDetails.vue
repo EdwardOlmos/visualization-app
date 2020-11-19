@@ -1,13 +1,9 @@
 <template>
   <div class="result-details">
     <h2 style="text-align: center;">
-      Comparison: {{ this.$route.params.slug }} (score: {{ result.score }})
+      Matches for {{ result.fileOneName }} and {{ result.fileTwoName }} (Score:
+      {{ result.score }})
     </h2>
-    <!-- <div :class="center">
-      <button>
-        Clear Highlighted
-      </button>
-    </div> -->
     <div class="table">
       <table>
         <thead>
@@ -30,7 +26,9 @@
                   :id="'line-' + fixIndex(index) + '-a'"
                   v-on:click="clickLineA(fixIndex(index))"
                   :class="[
-                    isMatchA(fixIndex(index)) ? 'matched-theme' : 'normal-theme',
+                    isMatchA(fixIndex(index))
+                      ? 'matched-theme'
+                      : 'normal-theme',
                     intervalsA(fixIndex(index))
                   ]"
                 >
@@ -47,7 +45,9 @@
                   :id="'line-' + fixIndex(index) + '-b'"
                   v-on:click="clickLineB(fixIndex(index))"
                   :class="[
-                    isMatchB(fixIndex(index)) ? 'matched-theme ' : 'normal-theme ',
+                    isMatchB(fixIndex(index))
+                      ? 'matched-theme '
+                      : 'normal-theme ',
                     intervalsB(fixIndex(index))
                   ]"
                 >
@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import store from "@/store.js";
+import store from "@/script_results.js";
 
 export default {
   data() {
