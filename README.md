@@ -52,15 +52,14 @@ npm run serve
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
-[Contribution guidelines for this project](docs/CONTRIBUTING.md)
-
 ## Acknowledgements
+* [csun-tavlab](https://github.com/csun-tavlab)
 
 ## References
 * [Plagiarism Detection Tool](https://dl.acm.org/doi/10.1145/3304221.3319789)
-* []()
+* [Visualizing Plagiarism Detection Results](http://hdl.handle.net/10211.3/218231)
 
 ## Glossary
-* File Pairs: Two source code files compared by FETT
-* Suspicion of Plagiarism: Suspicion of plagiarism based on FETT
-* File Pair Matches: An array of source code files' line numbers that matched based on FETT
+* **File Pairs**: Two source code files compared by FETT
+* **Suspicion** of Plagiarism: Suspicion of plagiarism based on FETT
+* **File Pair Matches**: An array of source code files' line numbers that matched based on FETT
