@@ -23,31 +23,45 @@ To run locally, follow the steps below
 * npm
 
 ### Installation
-* Clone Repo
+* Clone repo 
 ```
 git clone git@github.com:EdwardOlmos/visualization-app.git
 ```
-
 * Install dependencies
 ```
 npm install
 ```
+* Run the application (Compiles and hot-reloads for development)
+```
+npm run serve
+```
+
+## How to Use
+After running `npm run serve`, a browser window will automatically pop up with the app running on a local port. 
+
+### First View
+This view is the landing page of the application. Users can see a table containing test data from a previous run done on FETT. 
+
+The first column contains all the file pairs, and the right column shows an arbitrary numeric score. Users can click on a file pair to see more details about how it got its score. 
+
+*Note*: The test data is already filtered, from highest to lowest scores. 
+
+### Second View 
+This view provides detailed information with a side-by-side view of the compared source code files. Users can observe which lines of code FETT considered suspicious of plagiarism by noticing the color scheme. 
+Black-colored code infers no suspicion of plagiarism.
+A red-colored code signifies possible plagiarism.
+Selected file matches will highlighted code yellow.
+
+Users can click on the red-colored code from either the left or right-hand file to see matches associated with it. Once clicked, the selected line will highlight yellow and the other matching lines of code. 
 
 ### Sample Data File
-There is sample data located at `/src/script_results.js` to enact as a GET call for results data provided by FETT. The sample data is imported and used for the following information about the compared source code files fed into FETT:
+There is sample data located at `/src/script_results.js` that temporarily enacts as a GET call for test data provided by FETT. The sample data is imported and used for the following information about the compared source code files fed into FETT:
 * File Names
 * Set of Matches for each file comparison
 * Scores for each file comparison
 
 ## Roadmap
 See the open issues for a list of proposed features (and known issues)
-
-## Available Scripts
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
