@@ -1,18 +1,9 @@
 <template>
-  <div id="app">
-    <TheNavigation />
-    <router-view :key="$route.path" />
+  <div id="nav" class="container text-center">
+    <router-link class="h5" to="/">Home</router-link>
   </div>
+  <router-view/>
 </template>
-
-<script>
-import TheNavigation from "@/components/TheNavigation";
-export default {
-  components: {
-    TheNavigation
-  }
-};
-</script>
 
 <style>
 #app {
@@ -21,4 +12,10 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
 }
+
+#nav {
+  padding: 30px 12px 30px 12px;
+}
+
+
 </style>

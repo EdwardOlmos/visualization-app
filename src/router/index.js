@@ -1,16 +1,13 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
+import { createRouter, createWebHistory } from 'vue-router'
+import Home from '../views/Home.vue'
 import store from "@/script_results.js";
-
-Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
     name: "Home",
     props: true,
-    component: Home
+    component: Home,
   },
   {
     path: "/:slug",
@@ -25,27 +22,20 @@ const routes = [
       ),
     beforeEnter: (to, from, next) => {
       const exists = store.results.find(
-        results => results.slug === to.params.slug
+        (results) => results.slug === to.params.slug
       );
       if (exists) {
         next();
       } else {
         next({ name: "notFound" });
       }
-    }
+    },
   },
-  {
-    path: "404",
-    alias: "*",
-    name: "notFound",
-    component: () =>
-      import(/* webpackChunkName: "NotFound" */ "../views/NotFound.vue")
-  }
 ];
 
-const router = new VueRouter({
-  routes,
-  mode: "history"
-});
+const router = createRouter({
+  history: createWebHistory(process.env.BASE_URL),
+  routes
+})
 
-export default router;
+export default router

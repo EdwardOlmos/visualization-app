@@ -1,16 +1,18 @@
 <template>
   <div class="home">
-    <h2 style="text-align: center;">FETT's Results</h2>
-    <div style="center">
-      <table>
-        <thead>
+    <div class="container">
+      <h1 class="text-center">Results</h1>
+      <table class="table table-hover">
+        <thead class="table-dark">
           <tr>
-            <th colspan="1">Files Compared</th>
-            <th colspan="1">Score</th>
+            <th scope="col">#</th>
+            <th scope="col">File Pairs</th>
+            <th scope="col">Score</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="result in results" :key="result.name">
+          <tr v-for="(result, index) in results" :key="result.name">
+            <td>{{index+1}}</td>
             <td>
               <router-link
                 style="text-decoration:none"
@@ -28,22 +30,22 @@
 </template>
 
 <script>
-// @ is an alias to /src
-import store from "@/script_results.js";
+  // @ is an alias to /src
+  import store from "@/script_results.js";
 
-export default {
-  name: "Home",
-  components: {},
-  data() {
-    return {
-      results: store.results
-    };
-  }
-};
+  export default {
+    name: "Home",
+    components: {},
+    data() {
+      return {
+        results: store.results,
+      };
+    },
+  };
 </script>
 
 <style scoped>
-table {
+  /* table {
   justify-content: center;
   border: 1px solid #333;
   margin-left: auto;
@@ -62,5 +64,5 @@ thead,
 tfoot {
   background-color: rgb(48, 48, 48);
   color: #fff;
-}
+} */
 </style>
