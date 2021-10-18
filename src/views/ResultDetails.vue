@@ -125,14 +125,14 @@ export default {
     },
     clickLineA: function(lineNo) {
       var i;
-      console.log("-----------------------------------");
-      console.log("LineNo " + lineNo + " was clicked");
+      // console.log("-----------------------------------");
+      // console.log("LineNo " + lineNo + " was clicked");
       var selectedDiv = document.getElementById("line-" + lineNo + "-a");
 
       // clean up all div's with highlighted matches, if any
       if (document.getElementsByClassName("highlight-theme")) {
         var HTMLColl = document.getElementsByClassName("highlight-theme");
-        console.log("HTMLCOLL: " + HTMLColl.length);
+        // console.log("HTMLCOLL: " + HTMLColl.length);
 
         var lengthHTML = HTMLColl.length;
         if (HTMLColl.length != 0) {
@@ -159,7 +159,7 @@ export default {
           }
         }
         var j;
-        console.log("Matches Found: " + matchList);
+        // console.log("Matches Found: " + matchList);
 
         // inject highlight class - create a for loop that iterates through matchList[]
         for (i = 0; i < matchList.length; i++) {
@@ -171,19 +171,19 @@ export default {
           }
         }
       } else {
-        console.log("No matches...");
+        // console.log("No matches...");
       }
     },
     clickLineB: function(lineNo) {
       var i;
-      console.log("-----------------------------------");
-      console.log("LineNo " + lineNo + " was clicked");
+      // console.log("-----------------------------------");
+      // console.log("LineNo " + lineNo + " was clicked");
       var selectedDiv = document.getElementById("line-" + lineNo + "-b");
 
       // clean up all div's with highlighted matches, if any
       if (document.getElementsByClassName("highlight-theme")) {
         var HTMLColl = document.getElementsByClassName("highlight-theme");
-        console.log("HTMLCOLL: " + HTMLColl.length);
+        // console.log("HTMLCOLL: " + HTMLColl.length);
 
         var lengthHTML = HTMLColl.length;
         if (HTMLColl.length != 0) {
@@ -210,7 +210,7 @@ export default {
           }
         }
         var j;
-        console.log("Matches Found: " + matchList);
+        // console.log("Matches Found: " + matchList);
 
         // inject highlight class - create a for loop that iterates through matchList[]
         for (i = 0; i < matchList.length; i++) {
@@ -221,7 +221,7 @@ export default {
           }
         }
       } else {
-        console.log("No matches...");
+        // console.log("No matches...");
       }
     },
     fixIndex: function(index) {
