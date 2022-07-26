@@ -2,9 +2,9 @@
 
 ## About
 
-A Vue.js client for [FETT](https://github.com/lawtonnichols/plagiarism-detector), A Software Plagiarism Detection Tool, to visualize the results of the tool.
+A Vue.js client for [FETT](https://github.com/lawtonnichols/plagiarism-detector), A Software Plagiarism Detection Tool.
 
-FETT takes source code files, compares the files for plagiarism, and outputs scores that reflects the weight of suspicion of plagiarism. These scores alone are not informative enough for the user to know which sections of the source code files caused suspicion of plagiarism. Therefore, [this paper](http://hdl.handle.net/10211.3/218231) elaborates the approach of modifying FETT's use of the [Smith-Waterman Algorithm](https://en.wikipedia.org/wiki/Smith%E2%80%93Waterman_algorithm) and presenting the results using Vue.js.
+FETT takes source code files, compares the files for plagiarism, and outputs scores that reflect the weight of suspicion of plagiarism. These scores alone are not informative enough for the user to know which sections of the source code files caused suspicion of plagiarism. Therefore, [this paper](http://hdl.handle.net/10211.3/218231) elaborates the approach of modifying FETT's use of the [Smith-Waterman Algorithm](https://en.wikipedia.org/wiki/Smith%E2%80%93Waterman_algorithm) and presenting the results using Vue.js.
 
 ## Goal
 
@@ -65,7 +65,7 @@ _Note_: The test data is already filtered, from highest to lowest scores.
 This view provides detailed information with a side-by-side view of the compared source code files. Users can observe which lines of code FETT considered suspicious of plagiarism by noticing the color scheme.
 Black-colored code infers no suspicion of plagiarism.
 A red-colored code signifies possible plagiarism.
-Selected file matches will highlighted code yellow.
+Selected file matches will be highlighted in yellow.
 
 Users can click on the red-colored code from either the left or right-hand file to see matches associated with it. Once clicked, the selected line will highlight yellow and the other matching lines of code.
 
@@ -89,7 +89,7 @@ See the open issues for a list of proposed features (and known issues)
 
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
-## Acknowledgements
+## Acknowledgments
 
 - [csun-tavlab](https://github.com/csun-tavlab)
 
